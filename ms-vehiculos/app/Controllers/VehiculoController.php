@@ -1,6 +1,5 @@
 <?php
 namespace App\Controllers;
-
 use App\Helpers\JsonResponse;
 use App\Models\Vehiculo;
 use Psr\Http\Message\ResponseInterface as Response;

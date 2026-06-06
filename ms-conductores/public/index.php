@@ -12,7 +12,7 @@ $app->add(new CorsMiddleware());
 $app->addErrorMiddleware(true, true, true);
 $app ->get('/', function($request, $response){
     $data = [
-        'message' => 'ms-conductores funciona correctamente'
+        'message' => 'Funciona correctamente'
     ];
     $response->getBody()->write(json_encode($data));
     return $response->withHeader('Content-Type', 'application/json');

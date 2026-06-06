@@ -11,7 +11,6 @@ class JsonResponse
             'success' => true,
             'data' => $data,
         ], JSON_UNESCAPED_UNICODE));
-
         return $response->withStatus($status)->withHeader('Content-Type', 'application/json');
     }
 
@@ -21,7 +20,6 @@ class JsonResponse
             'success' => false,
             'message' => $message,
         ], JSON_UNESCAPED_UNICODE));
-
         return $response->withStatus($status)->withHeader('Content-Type', 'application/json');
     }
 }
