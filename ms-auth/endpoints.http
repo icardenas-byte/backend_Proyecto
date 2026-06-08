@@ -1,0 +1,24 @@
+### MS-AUTH - Autenticación
+# Base URL: http://localhost/ms-auth/public
+
+###
+# POST /api/login - Login de usuario
+POST http://localhost/ms-auth/public/api/login
+Content-Type: application/json
+
+{
+  "usuario": "admin",
+  "password": "password"
+}
+
+###
+# POST /api/logout - Cerrar sesión
+POST http://localhost/ms-auth/public/api/logout
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# GET /api/validate - Validar token activo
+GET http://localhost/ms-auth/public/api/validate
+Authorization: Bearer <token>
+Content-Type: application/json
