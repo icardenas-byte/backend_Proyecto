@@ -96,12 +96,14 @@ class AuthController
         return trim($header);
     }
 
-    private function passwordValido(string $password, string $hash): bool
-    {
-        if ($hash === '') {
-            return false;
-        }
-
-        return password_verify($password, $hash) || hash_equals($hash, $password);
+private function passwordValido(string $password, string $hash): bool
+{
+    if (empty($hash)) {
+        return false;
     }
+    if (strpos($hash, '$2y$') === 0 || strpos($hash, '$2a$') === 0 || strpos($hash, '$2b$') === 0) {
+        return password_verify($password, $hash);
+    }
+    return $password === $hash;
+}
 }

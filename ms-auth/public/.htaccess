@@ -1,4 +1,11 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [QSA,L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /ms-auth/public/
+    
+    # Si no es un archivo o carpeta real
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Redirige a index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
