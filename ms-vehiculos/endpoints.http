@@ -1,0 +1,56 @@
+### MS-VEHICULOS - Gestión de Vehículos
+# Base URL: http://localhost/ms-vehiculos/public
+# IMPORTANTE: Todos requieren token en Authorization header
+
+###
+# GET /api/vehiculos - Listar vehículos
+GET http://localhost/ms-vehiculos/public/api/vehiculos?placa=ABC&estado=Disponible&tipo=Camión
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# POST /api/vehiculos - Crear vehículo
+POST http://localhost/ms-vehiculos/public/api/vehiculos
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "placa": "ABC123",
+  "tipo": "Camión",
+  "capacidad_carga": 5000,
+  "modelo": "2023",
+  "marca": "Volvo",
+  "estado": "Disponible"
+}
+
+###
+# GET /api/vehiculos/{id} - Obtener un vehículo
+GET http://localhost/ms-vehiculos/public/api/vehiculos/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# PUT /api/vehiculos/{id} - Editar vehículo
+PUT http://localhost/ms-vehiculos/public/api/vehiculos/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "placa": "ABC123",
+  "tipo": "Camión",
+  "capacidad_carga": 5000,
+  "modelo": "2023",
+  "marca": "Volvo",
+  "estado": "Disponible"
+}
+
+###
+# PATCH /api/vehiculos/{id}/estado - Cambiar estado
+# Estados: Disponible, En ruta, Mantenimiento, Inactivo
+PATCH http://localhost/ms-vehiculos/public/api/vehiculos/1/estado
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "estado": "Disponible"
+}

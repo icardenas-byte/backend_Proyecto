@@ -1,0 +1,61 @@
+### MS-VIAJES - Seguimiento de Viajes
+# Base URL: http://localhost/ms-viajes/public
+# IMPORTANTE: Todos requieren token en Authorization header
+
+###
+# GET /api/viajes - Listar viajes
+GET http://localhost/ms-viajes/public/api/viajes?estado=En%20transito&programacion_id=1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# POST /api/viajes/iniciar - Iniciar un viaje
+POST http://localhost/ms-viajes/public/api/viajes/iniciar
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "programacion_id": 1,
+  "observaciones": "Viaje iniciado a tiempo"
+}
+
+###
+# PATCH /api/viajes/{id}/estado - Cambiar estado del viaje
+# Estados: Programado, En transito, Retrasado, Finalizado, Cancelado
+PATCH http://localhost/ms-viajes/public/api/viajes/1/estado
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "estado": "Retrasado",
+  "observaciones": "Tráfico en la ruta"
+}
+
+###
+# POST /api/viajes/{id}/novedades - Registrar una novedad
+POST http://localhost/ms-viajes/public/api/viajes/1/novedades
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "tipo": "Retraso",
+  "descripcion": "Tráfico intenso",
+  "observaciones": "Estimado 30 minutos de retraso"
+}
+
+###
+# PATCH /api/viajes/{id}/finalizar - Finalizar un viaje
+# Solo funciona si el viaje está "En transito" o "Retrasado"
+PATCH http://localhost/ms-viajes/public/api/viajes/1/finalizar
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "observaciones": "Viaje completado exitosamente"
+}
+
+###
+# GET /api/viajes/{id}/seguimiento - Ver historial del viaje
+GET http://localhost/ms-viajes/public/api/viajes/1/seguimiento
+Authorization: Bearer <token>
+Content-Type: application/json
