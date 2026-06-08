@@ -20,7 +20,7 @@ class AuthMiddleware implements MiddlewareInterface
         }
 
         $usuario = Usuario::where('token', $token)
-            ->where('session_active', 1)
+            ->where('sesion_activa', 1)
             ->first();
 
         if (!$usuario) {

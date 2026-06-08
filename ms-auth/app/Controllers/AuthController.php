@@ -11,7 +11,7 @@ class AuthController
     public function login(Request $request, Response $response): Response
     {
         $body = (array) $request->getParsedBody();
-        $identificador = trim($body['usuario'] ?? $body['email'] ?? '');
+        $identificador = trim($body['usuario'] ?? $body['correo'] ?? $body['email'] ?? '');
         $password = (string) ($body['password'] ?? '');
 
         if ($identificador === '' || $password === '') {
@@ -19,17 +19,17 @@ class AuthController
         }
 
         $usuario = Usuario::where('usuario', $identificador)
-            ->orWhere('email', $identificador)
+            ->orWhere('correo', $identificador)
             ->first();
 
-        if (!$usuario || !$this->passwordValido($password, (string) $usuario->password)) {
+        if (!$usuario || !$this->passwordValido($password, (string) $usuario->contrasena)) {
             return JsonResponse::error($response, 'Credenciales incorrectas', 401);
         }
 
         $token = bin2hex(random_bytes(32));
         $usuario->update([
             'token' => $token,
-            'session_active' => 1,
+            'sesion_activa' => 1,
         ]);
 
         return JsonResponse::ok($response, [
@@ -37,7 +37,8 @@ class AuthController
             'usuario' => [
                 'id' => $usuario->id,
                 'usuario' => $usuario->usuario,
-                'email' => $usuario->email,
+                'correo' => $usuario->correo,
+                'rol' => $usuario->rol,
             ],
         ]);
     }
@@ -49,7 +50,7 @@ class AuthController
         if ($usuario) {
             $usuario->update([
                 'token' => null,
-                'session_active' => 0,
+                'sesion_activa' => 0,
             ]);
         }
 
@@ -68,7 +69,8 @@ class AuthController
             'valid' => true,
             'usuario_id' => $usuario->id,
             'usuario' => $usuario->usuario,
-            'email' => $usuario->email,
+            'correo' => $usuario->correo,
+            'rol' => $usuario->rol,
         ]);
     }
 
@@ -81,7 +83,7 @@ class AuthController
         }
 
         return Usuario::where('token', $token)
-            ->where('session_active', 1)
+            ->where('sesion_activa', 1)
             ->first();
     }
 

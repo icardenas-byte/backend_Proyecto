@@ -1,24 +1,26 @@
-### MS-AUTH - Autenticación
-# Base URL: http://localhost/ms-auth/public
+### MS-AUTH - Autenticacion
+# Base URL sin Apache/XAMPP: http://127.0.0.1:9001
+# Arranque recomendado:
+# php -S 127.0.0.1:9001 -t public
 
 ###
 # POST /api/login - Login de usuario
-POST http://localhost/ms-auth/public/api/login
+POST http://127.0.0.1:9001/api/login
 Content-Type: application/json
 
 {
   "usuario": "admin",
-  "password": "password"
+  "password": "admin123"
 }
 
 ###
-# POST /api/logout - Cerrar sesión
-POST http://localhost/ms-auth/public/api/logout
+# POST /api/logout - Cerrar sesion
+POST http://127.0.0.1:9001/api/logout
 Authorization: Bearer <token>
 Content-Type: application/json
 
 ###
 # GET /api/validate - Validar token activo
-GET http://localhost/ms-auth/public/api/validate
+GET http://127.0.0.1:9001/api/validate
 Authorization: Bearer <token>
 Content-Type: application/json

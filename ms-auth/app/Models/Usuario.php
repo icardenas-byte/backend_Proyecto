@@ -8,14 +8,17 @@ class Usuario extends Model
     protected $table = 'usuarios';
 
     protected $fillable = [
+        'nombre',
         'usuario',
-        'email',
-        'password',
+        'correo',
+        'contrasena',
+        'rol',
         'token',
-        'session_active',
+        'sesion_activa',
+        'estado',
     ];
 
     public $timestamps = false;
 
-    protected $hidden = ['password'];
+    protected $hidden = ['contrasena'];
 }

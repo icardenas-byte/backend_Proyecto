@@ -22,7 +22,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         try {
             $pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=logistica_auth;charset=utf8', 'root', '');
-            $stmt = $pdo->prepare('SELECT id, usuario, email FROM usuarios WHERE token = ? AND session_active = 1 LIMIT 1');
+            $stmt = $pdo->prepare('SELECT id, usuario, correo, rol FROM usuarios WHERE token = ? AND sesion_activa = 1 LIMIT 1');
             $stmt->execute([$token]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException) {
