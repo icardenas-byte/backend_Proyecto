@@ -1,0 +1,43 @@
+### MS-RUTAS - Gestión de Rutas
+# Base URL: http://localhost/ms-rutas/public
+# IMPORTANTE: Todos requieren token en Authorization header
+
+###
+# GET /api/rutas - Listar rutas
+GET http://localhost/ms-rutas/public/api/rutas?ciudad=Bogota
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# POST /api/rutas - Crear ruta
+POST http://localhost/ms-rutas/public/api/rutas
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "ciudad_origen": "Bogotá",
+  "ciudad_destino": "Medellín",
+  "distancia": 430,
+  "tiempo_estimado": "06:30:00",
+  "observaciones": "Ruta por autopista"
+}
+
+###
+# GET /api/rutas/{id} - Obtener una ruta
+GET http://localhost/ms-rutas/public/api/rutas/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# PUT /api/rutas/{id} - Editar ruta
+PUT http://localhost/ms-rutas/public/api/rutas/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+    "ciudad_origen": "Bogotá",
+    "ciudad_destino": "Medellín",
+    "distancia": 430,
+    "tiempo_estimado": "06:30:00",
+    "observaciones": "Ruta por autopista"
+}

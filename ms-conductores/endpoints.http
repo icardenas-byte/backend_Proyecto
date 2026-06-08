@@ -1,0 +1,60 @@
+### MS-CONDUCTORES - Gestión de Conductores
+# Base URL: http://localhost/ms-conductores/public
+# IMPORTANTE: Todos requieren token en Authorization header
+
+###
+# GET /api/conductores - Listar conductores
+GET http://localhost/ms-conductores/public/api/conductores?documento=123&licencia=ABC&estado=Disponible
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# POST /api/conductores - Crear conductor
+POST http://localhost/ms-conductores/public/api/conductores
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "nombres": "Juan",
+  "apellidos": "Pérez",
+  "documento": "12345678",
+  "telefono": "3123456789",
+  "email": "juan@email.com",
+  "numero_licencia": "LIC123",
+  "categoria_licencia": "A2",
+  "fecha_vencimiento_licencia": "2026-12-31"
+}
+
+###
+# GET /api/conductores/{id} - Obtener un conductor
+GET http://localhost/ms-conductores/public/api/conductores/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+###
+# PUT /api/conductores/{id} - Editar conductor
+PUT http://localhost/ms-conductores/public/api/conductores/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "nombres": "Juan",
+  "apellidos": "Pérez",
+  "documento": "12345678",
+  "telefono": "3123456789",
+  "email": "juan@email.com",
+  "numero_licencia": "LIC123",
+  "categoria_licencia": "A2",
+  "fecha_vencimiento_licencia": "2026-12-31"
+}
+
+###
+# PATCH /api/conductores/{id}/estado - Cambiar estado
+# Estados: Disponible, En ruta, Inactivo
+PATCH http://localhost/ms-conductores/public/api/conductores/1/estado
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "estado": "Disponible"
+}
