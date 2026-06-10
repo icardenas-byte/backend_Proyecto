@@ -23,20 +23,20 @@ class ViajeController
             $query->where('estado', trim($params['estado']));
         }
 
-        if (!empty($params['programacion_id'])) {
-            $query->where('programacion_id', trim($params['programacion_id']));
+        if (!empty($params['programacion_viaje_id'])) {
+            $query->where('programacion_viaje_id', trim($params['programacion_viaje_id']));
         }
 
-        return JsonResponse::ok($response, $query->with('novedades')->orderBy('id', 'desc')->get());
+        return JsonResponse::ok($response, $query->orderBy('id', 'desc')->get());
     }
 
     public function iniciar(Request $request, Response $response): Response
     {
         $body = (array) $request->getParsedBody();
-        $programacionId = (int) ($body['programacion_id'] ?? 0);
+        $programacionId = (int) ($body['programacion_viaje_id'] ?? 0);
 
         if ($programacionId <= 0) {
-            return JsonResponse::error($response, 'programacion_id es obligatorio', 422);
+            return JsonResponse::error($response, 'programacion_viaje_id es obligatorio', 422);
         }
 
         $programacion = $this->buscarProgramacion($programacionId);
@@ -49,7 +49,7 @@ class ViajeController
         }
 
         $viaje = Viaje::firstOrCreate(
-            ['programacion_id' => $programacionId],
+            ['programacion_viaje_id' => $programacionId],
             ['estado' => 'Programado', 'observaciones' => $body['observaciones'] ?? null]
         );
 
@@ -157,7 +157,7 @@ class ViajeController
 
     public function seguimiento(Request $request, Response $response, array $args): Response
     {
-        $viaje = Viaje::with('novedades')->find($args['id']);
+        $viaje = Viaje::find($args['id']);
 
         if (!$viaje) {
             return JsonResponse::error($response, 'Viaje no encontrado', 404);
@@ -165,7 +165,7 @@ class ViajeController
 
         return JsonResponse::ok($response, [
             'viaje' => $viaje,
-            'programacion' => $this->buscarProgramacion((int) $viaje->programacion_id),
+            'programacion' => $this->buscarProgramacion((int) $viaje->programacion_viaje_id),
         ]);
     }
 

@@ -8,33 +8,15 @@ class Viaje extends Model
 {
     public $timestamps = false;
 
+    protected $table = 'seguimientos_viajes';
+
     protected $fillable = [
-        'programacion_id',
+        'programacion_viaje_id',
+        'fecha',
+        'hora',
         'estado',
-        'fecha_inicio',
-        'fecha_fin',
-        'observaciones',
+        'novedad'
     ];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->table = self::tablaDisponible();
-    }
-
-    public static function tablaDisponible(): string
-    {
-        foreach (['viajes', 'seguimiento_viajes'] as $tabla) {
-            if (DB::schema()->hasTable($tabla)) {
-                return $tabla;
-            }
-        }
-
-        return 'viajes';
-    }
-
-    public function novedades()
-    {
-        return $this->hasMany(Novedad::class, 'viaje_id');
-    }
 }
+
