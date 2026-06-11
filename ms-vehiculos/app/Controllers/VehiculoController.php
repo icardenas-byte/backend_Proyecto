@@ -105,7 +105,7 @@ class VehiculoController
         $body = (array) $request->getParsedBody();
         $data = [];
 
-        foreach (['placa', 'tipo', 'capacidad_carga', 'modelo', 'marca', 'estado'] as $campo) {
+        foreach (['placa', 'tipo_vehiculo', 'capacidad_carga', 'modelo', 'marca', 'estado'] as $campo) {
             if (array_key_exists($campo, $body)) {
                 $data[$campo] = is_string($body[$campo]) ? trim($body[$campo]) : $body[$campo];
             }
@@ -124,7 +124,7 @@ class VehiculoController
 
     private function validar(array $data, bool $crear = true): ?string
     {
-        foreach (['placa', 'tipo', 'capacidad_carga', 'modelo', 'marca'] as $campo) {
+        foreach (['placa', 'tipo_vehiculo', 'capacidad_carga', 'modelo', 'marca'] as $campo) {
             if ($crear && empty($data[$campo])) {
                 return "El campo {$campo} es obligatorio";
             }

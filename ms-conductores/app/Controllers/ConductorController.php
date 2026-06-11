@@ -149,8 +149,8 @@ class ConductorController
             }
         }
 
-        if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            return 'El email no es valido';
+        if (!empty($data['correo']) && !filter_var($data['correo'], FILTER_VALIDATE_EMAIL)) {
+            return 'El correo no es valido';
         }
 
         if (!empty($data['estado']) && !in_array($data['estado'], self::ESTADOS, true)) {
