@@ -31,23 +31,57 @@ class ProgramacionController
         return JsonResponse::ok($response, $query->with('ruta')->orderBy('id', 'desc')->get());
     }
 
-    public function store(Request $request, Response $response): Response
-    {
-        $data = $this->datos($request);
-        $error = $this->validar($data);
+    public function store(Request $request, Response $response): Response{
+    $data = $this->datos($request);
+    $error = $this->validar($data);
+    if ($error) {
+        return JsonResponse::error($response, $error, 422);
+    }
+    $errorDisponibilidad = $this->validarDisponibilidad($data);
+    if ($errorDisponibilidad) {
+        return JsonResponse::error($response, $errorDisponibilidad, 409);
+    }
+    $programacion = ProgramacionViaje::create($data);
+    try {
+        $pdo = new PDO(
+            'mysql:host=127.0.0.1;port=3306;dbname=logistica_viajes;charset=utf8',
+            'root',
+            ''
+        );
+        $stmt = $pdo->prepare("
+            INSERT INTO seguimientos_viajes (
+                programacion_viaje_id,
+                fecha,
+                hora,
+                estado,
+                novedad,
+                created_at,
+                updated_at
+            )
+            VALUES (
+                ?, ?, ?, ?, ?, NOW(), NOW()
+            )
+        ");
+        $stmt->execute([
+            $programacion->id,
+            $programacion->fecha_salida,
+            $programacion->hora_salida,
+            'programado',
+            'Viaje programado'
+        ]);
 
-        if ($error) {
-            return JsonResponse::error($response, $error, 422);
-        }
+    } catch (PDOException $e) {
 
-        $errorDisponibilidad = $this->validarDisponibilidad($data);
-        if ($errorDisponibilidad) {
-            return JsonResponse::error($response, $errorDisponibilidad, 409);
-        }
+        return JsonResponse::error(
+            $response,
+            'Error creando seguimiento: ' . $e->getMessage(),
+            500
+        );
 
-        return JsonResponse::ok($response, ProgramacionViaje::create($data), 201);
     }
 
+    return JsonResponse::ok($response, $programacion, 201);
+}
     public function update(Request $request, Response $response, array $args): Response
     {
         $programacion = ProgramacionViaje::find($args['id']);

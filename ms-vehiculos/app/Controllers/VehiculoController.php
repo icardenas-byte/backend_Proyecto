@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class VehiculoController
 {
-    private const ESTADOS = ['Disponible', 'En ruta', 'Mantenimiento', 'Inactivo'];
+   private const ESTADOS = ['disponible','en_ruta','mantenimiento','inactivo'];
 
     public function index(Request $request, Response $response): Response
     {
@@ -116,7 +116,7 @@ class VehiculoController
         }
 
         if ($conDefaults && empty($data['estado'])) {
-            $data['estado'] = 'Disponible';
+            $data['estado'] = 'disponible';
         }
 
         return $data;

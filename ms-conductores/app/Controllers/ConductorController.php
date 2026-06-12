@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class ConductorController
 {
-    private const ESTADOS = ['Disponible', 'En ruta', 'Inactivo'];
+    private const ESTADOS = ['disponible', 'en_ruta', 'inactivo'];
 
     public function index(Request $request, Response $response): Response
     {
@@ -120,7 +120,7 @@ class ConductorController
             'apellidos',
             'documento',
             'telefono',
-            'email',
+            'correo',
             'numero_licencia',
             'categoria_licencia',
             'fecha_vencimiento_licencia',
@@ -135,7 +135,7 @@ class ConductorController
         }
 
         if ($conDefaults && empty($data['estado'])) {
-            $data['estado'] = 'Disponible';
+            $data['estado'] = 'disponible';
         }
 
         return $data;

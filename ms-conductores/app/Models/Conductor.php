@@ -14,7 +14,7 @@ class Conductor extends Model
         'apellidos',
         'documento',
         'telefono',
-        'email',
+        'correo',
         'numero_licencia',
         'categoria_licencia',
         'fecha_vencimiento_licencia',
