@@ -161,7 +161,7 @@ class ProgramacionController
             return 'El vehiculo no existe';
         }
 
-        if (in_array($vehiculo['estado'] ?? '', ['Mantenimiento', 'Inactivo'], true)) {
+        if (in_array($vehiculo['estado'] ?? '', ['mantenimiento', 'inactivo', 'en_ruta'], true)) {
             return 'El vehiculo no esta disponible';
         }
 
